@@ -157,7 +157,11 @@ export function processTimeAgo(selector?: string) {
    namespace debiki2.utils {
 //------------------------------------------------------------------------------
 
-export function makeMountNode(): HTMLElement {
+// Websearch for "react hooks dialog"
+// Also see:
+// https://codesandbox.io/s/7kxj9p9qm0?from-embed=&file=/src/Dialog/index.js
+//
+export function makeMountNode(): HTMLElement {  // [use_portal] instead?
   const elem = Bliss.create('div');
   document.body.appendChild(elem);
   return elem;

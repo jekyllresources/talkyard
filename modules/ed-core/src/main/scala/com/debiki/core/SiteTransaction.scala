@@ -217,6 +217,14 @@ trait SiteTransaction {   RENAME // to SiteTx — already started with a type Si
         readFromIp: String): Unit
 
 
+  def loadUserAndStats(ppId: UserId): (Option[User], Option[UserStats]) = {
+    val user = loadUser(ppId) getOrElse {
+      return (None, None)
+    }
+    val anyStats = loadUserStats(ppId)
+    (Some(user), anyStats)
+  }
+
   def loadUserStats(userId: UserId): Option[UserStats]
   def loadAllUserStats(): immutable.Seq[UserStats]
   def upsertUserStats(userStats: UserStats): Unit

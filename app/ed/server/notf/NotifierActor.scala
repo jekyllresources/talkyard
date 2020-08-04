@@ -254,13 +254,18 @@ class NotifierActor (val systemDao: SystemDao, val siteDaoFactory: SiteDaoFactor
       val userIdsBySiteId: Map[String, List[SiteId]] =
         notfsBySiteId.mapValues(_.map(_.recipientUserId))
       val usersBySiteAndId: Map[(SiteId, UserId), User] = loadUsers(userIdsBySiteId) */
-      val anyUser = siteDao.getParticipant(userId)
+      val (anyUser, anyStats) = siteDao.readTx { tx =>
+        tx.loadUserAndStats(userId)
+      }
 
       // Maybe the user just changed hens settings and no longer wants to get notified
       // about posts hen has read already?
       val skipSeen = anyUser.exists(_.emailNotfPrefs != EmailNotfPrefs.ReceiveAlways)
       val (notfsToSkip, notfsToSend) = userNotfsMaybeInclSeen.span { notf =>
-        notf.seenAt.isDefined && skipSeen
+        UX; SHOULD // remember which notfs was skipped, because snoozing,
+        // and send a Snoozed-notfs summary email, when un-snoozing.
+        anyStats.exists(_.isSnoozing(globals.now())) ||
+            notf.seenAt.isDefined && skipSeen
       }
 
       siteDao.updateNotificationSkipEmail(notfsToSkip)

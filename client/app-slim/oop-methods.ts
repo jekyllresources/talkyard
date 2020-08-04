@@ -446,6 +446,10 @@ export function me_uiPrefs(me: Myself): UiPrefs {
   return shallowMergeFirstItemLast(me.uiPrefsOwnFirst);
 }
 
+export function me_isSnoozing(me: Myself): boolean {
+  return me.snoozeUntilMins && me.snoozeUntilMins > getNowMins();
+}
+
 
 // Groups
 //----------------------------------

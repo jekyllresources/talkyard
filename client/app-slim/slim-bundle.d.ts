@@ -121,6 +121,7 @@ declare namespace debiki2 {
   function win_canUseCookies(win: MainWin): boolean;
 
   function getNowMs(): WhenMs;
+  function getNowMins(): WhenMins;
 
   let iframeOffsetWinSize;
 
@@ -269,6 +270,7 @@ declare namespace debiki2 {
   function pageRole_iconClass(pageRole: PageRole): string;
 
   function me_uiPrefs(me: Myself): UiPrefs;
+  function me_isSnoozing(me: Myself): boolean;
   function member_isBuiltIn(member: Member): boolean;
   function user_isSuspended(user: UserInclDetails, nowMs: WhenMs): boolean;
   function user_threatLevel(user: UserInclDetails): ThreatLevel;
