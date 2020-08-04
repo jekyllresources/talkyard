@@ -47,7 +47,12 @@ export function createFactory<P, S>(compSpec: React.ComponentSpec<P, S>)
 }
 
 
-export function whenMsToIsoDate(whenMs: number): string {
+export function whenMinsToIsoDate(whenMins: WhenMins): string {
+  return whenMsToIsoDate(whenMins * 60 * 1000);
+}
+
+
+export function whenMsToIsoDate(whenMs: WhenMs): string {
   return new Date(whenMs).toISOString().replace(/T/, ' ')
 }
 

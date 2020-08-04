@@ -364,6 +364,7 @@ function runAllE2eTests {
   $r s/wdio --only unsubscribe.2browsers $args
   $r s/wdio --only notf-emails-discussion.2browsers $args
   $r s/wdio --only notfs-mark-all-as-read.2browsers $args  # REANME append -manually
+  $r s/wdio --only notfs-snooze.2browsers $args
   $r s/wdio --only notf-override-group-prefs.2browsers $args
   $r s/wdio --only notfs-prefs-inherit-own.2browsers $args
   $r s/wdio --only notfs-prefs-inherit-group.2browsers $args

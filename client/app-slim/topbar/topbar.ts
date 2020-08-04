@@ -239,13 +239,18 @@ export const TopBar = createComponent({
       }
     }
 
-    let myAvatar = !me.isLoggedIn ? null :
+    const myAvatar = !me.isLoggedIn ? null :
         avatar.Avatar({ user: me, origins: store, ignoreClicks: true });
+
+    const snoozeIcon = pp_snoozingUntilMins(me) &&
+        r.img({ alt: "Snoozing",
+            className: 's_MMB_SnzI', // means: My-Menu-Button Snooze-Icon
+            src: '/-/media/sysuicons/bell_snooze.svg' });
 
     const avatarNameDropdown = !me.isLoggedIn && !impersonatingStrangerInfo ? null :
       utils.ModalDropdownButton({
           // RENAME 'esMyMenu' to 's_MMB' (my-menu button).
-          className: 'esAvtrName esMyMenu' + isImpersonatingClass,  // CLEAN_UP RENAME btn class to ...B
+          className: 'esAvtrName esMyMenu' + isImpersonatingClass,  // CLEAN_UP RENAME to s_MMB
           dialogClassName: 's_MM',
           ref: 'myMenuButton',
           showCloseButton: true,
@@ -255,18 +260,20 @@ export const TopBar = createComponent({
           // they want MyMenu to stay open so they can continue Command-Click
           // opening notifications.
           stayOpenOnCmdShiftClick: true,
-          title: r.span({},
+          title: rFragment({},
             urgentReviewTasks,
             otherReviewTasks,
             impersonatingStrangerInfo,
             myAvatar,
+            // RENAME classes below to: s_MMB_Un (username) and s_MMB_You
             // If screen wide:
             r.span({ className: 'esAvtrName_name' }, me.username || me.fullName),
             // If screen narrow:
             r.span({ className: 'esAvtrName_you' }, t.You),
             talkToMeNotfs,
             talkToOthersNotfs,
-            otherNotfs) },
+            otherNotfs,
+            snoozeIcon) },
         MyMenuContentComponent({ store }));
 
 

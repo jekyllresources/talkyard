@@ -270,7 +270,7 @@ declare namespace debiki2 {
   function pageRole_iconClass(pageRole: PageRole): string;
 
   function me_uiPrefs(me: Myself): UiPrefs;
-  function me_isSnoozing(me: Myself): boolean;
+  function pp_snoozingUntilMins(me: Myself): WhenMins | false;
   function member_isBuiltIn(member: Member): boolean;
   function user_isSuspended(user: UserInclDetails, nowMs: WhenMs): boolean;
   function user_threatLevel(user: UserInclDetails): ThreatLevel;
@@ -287,7 +287,9 @@ declare namespace debiki2 {
   function prettyNum(num: number): number;
   function isBlank(x: string): boolean;
 
-  function whenMsToIsoDate(whenMs: number): string;
+  // Returns yyyy-mm-dd hh24:mi:ss, in local time. (Right?)
+  function whenMinsToIsoDate(whenMins: WhenMins): string;
+  function whenMsToIsoDate(whenMs: WhenMs): string;
 
   function seemsSelfHosted(): boolean;
   function isInSomeEmbCommentsIframe(): boolean;

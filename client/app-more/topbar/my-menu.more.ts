@@ -86,7 +86,7 @@ export const MyMenuContent = createFactory({
         MenuItemsMany({ className: 's_MM_NotfsBs' },
           hasAnyNotfs && LinkUnstyled({ to: linkToUsersNotfs(me.username) }, t.mm.MoreNotfs),
           LinkUnstyled({ onClick: () => pagedialogs.openSnoozeDialog(me), className: 's_MM_SnzB' },
-              me_isSnoozing(me) ? "Stop snoozing" : (  // I18N
+              pp_snoozingUntilMins(me) ? "Stop snoozing" : (  // I18N
                   // If "View all notfs" visible, then, the user can guess that Snooze is
                   // for snoozing notifications?
                   hasAnyNotfs ? "Snooze" : "Snooze notifications")),  // I18N

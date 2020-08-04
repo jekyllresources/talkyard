@@ -50,32 +50,36 @@ const SnoozeDialog = React.createFactory<{}>(function() {
 
   const me: Myself | U = diagState && diagState[0];
   const isOpen = !!me;
-  const isSnoozing = me && me_isSnoozing(me);
+  const snoozingUntilMins = me && pp_snoozingUntilMins(me);
 
   function close() {
     setDiagState(null);
   }
 
   function toggleSnooze() {
-    ReactActions.snoozeUntilMins(isSnoozing ? false : getNowMins() + hours * 60);
+    ReactActions.snoozeUntilMins(
+          snoozingUntilMins ? false : getNowMins() + hours * 60);
     close();
   }
 
   const modalHeader = isOpen &&
       ModalHeader({},
         ModalTitle({},
-          isSnoozing ? "Stop snoozing?" : "Snooze notifications?"));  // I18N
+          snoozingUntilMins ? "Stop snoozing?" : "Snooze notifications?"));  // I18N
 
-  const modalBody = isOpen && (!isSnoozing
+  const modalBody = isOpen && (!snoozingUntilMins
       ? ModalBody({},
           r.p({}, "Stop email notifications, for how many hours?"),   // I18N
           Input({ type: 'number',
               value: hours,
               onChange: (event) => setHours(event.target.value) }),
-          PrimaryButton({ onClick: toggleSnooze }, "Snooze"))   // I18N
+          PrimaryButton({ onClick: toggleSnooze, className: 'e_SnzB' },
+            "Snooze"))   // I18N
       : ModalBody({},
-          r.p({}, "Start receiving email notifications again?"),   // I18N
-          PrimaryButton({ onClick: toggleSnooze }, "Yes, stop snoozing"))   // I18N
+          r.p({}, "You're snoozing until: " + whenMinsToIsoDate(snoozingUntilMins)), // I18N
+          r.p({}, "Start receiving email notifications now directly?"),   // I18N
+          PrimaryButton({ onClick: toggleSnooze, className: 'e_UnSnzB' },
+            "Yes, stop snoozing"))   // I18N
       );
       
 

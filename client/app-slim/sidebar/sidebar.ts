@@ -630,6 +630,7 @@ function makeUsersContent(store: Store, users: BriefUser[], myId: UserId,
         r.span({ className: 'esPresence_thatsYou' }, ' — ' + t.cb.thatsYou) : null;
     currentUserIsStranger = currentUserIsStranger && user.id !== myId;
     const isUserOnline = store_isUserOnline(store, user.id);
+    const snoozingUntilMins = 60*24*365*100;
     const presenceClass = isUserOnline ? 'active' : 'away';
     const presenceTitle = isUserOnline ? t.Active : t.Away;
     return (

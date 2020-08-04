@@ -446,10 +446,6 @@ export function me_uiPrefs(me: Myself): UiPrefs {
   return shallowMergeFirstItemLast(me.uiPrefsOwnFirst);
 }
 
-export function me_isSnoozing(me: Myself): boolean {
-  return me.snoozeUntilMins && me.snoozeUntilMins > getNowMins();
-}
-
 
 // Groups
 //----------------------------------
@@ -466,6 +462,12 @@ export function member_isBuiltIn(member: Member): boolean {
 
 // Users
 //----------------------------------
+
+
+export function pp_snoozingUntilMins(me: Myself): WhenMins | false {
+  return me.snoozeUntilMins && me.snoozeUntilMins > getNowMins() ?
+          me.snoozeUntilMins : false;
+}
 
 
 export function user_isSuspended(user: UserInclDetails, nowMs: WhenMs): boolean {

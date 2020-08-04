@@ -2771,6 +2771,24 @@ export class TyE2eTestBrowser {
           this.waitForNewUrl();
         },
 
+        snoozeMins: (minutes: number) => {
+this.debug();
+          tyAssert.not(this.isVisible('.s_MMB_SnzI'));  // ttt
+          this.waitAndClick('.s_MM_SnzB');
+          this.waitAndClick('.e_SnzB');
+          this.topbar.closeMyMenuIfOpen();
+          this.waitForVisible('.s_MMB_SnzI');  // snooze icon
+        },
+
+        unsnooze: () => {
+this.debug();
+          tyAssert.that(this.isVisible('.s_MMB_SnzI'));  // ttt
+          this.waitAndClick('.s_MM_SnzB');
+          this.waitAndClick('.e_UnSnzB');
+          this.topbar.closeMyMenuIfOpen();
+          this.waitForGone('.s_MMB_SnzI');    // snooze icon gone
+        },
+
         dismNotfsBtnClass: '.e_DismNotfs',
 
         markAllNotfsRead: () => {
@@ -7461,6 +7479,16 @@ export class TyE2eTestBrowser {
       loginWithPasswordViaMetabar: (ps: NameAndPassword) => {
         this.metabar.clickLogin();
         this.loginDialog.loginWithPasswordInPopup(ps);
+      },
+
+      snoozeNotificationsMins: (minutes: number) => {
+        this.topbar.openMyMenu();
+        this.topbar.myMenu.snoozeMins(minutes);
+      },
+
+      unsnoozeNotifications: () => {
+        this.topbar.openMyMenu();
+        this.topbar.myMenu.unsnooze();
       },
 
       closeSidebars: () => {
