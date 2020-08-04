@@ -163,6 +163,10 @@ export const TopBar = createComponent({
 
     const autoPageType = location_autoPageType(this.props.location);
 
+    // No custom navigation or menus, when in the admin area
+    // — bad if a bug breaks the admin area.
+    const skipCustomCode = autoPageType === AutoPageType.AdminArea;
+
 
     // Sidebars just make newcomers confused, if shown on some About Us page. However, if logged
     // in already, then one likely knows how they work —> then one would instead be confused,
@@ -301,9 +305,7 @@ export const TopBar = createComponent({
     const siteLogoHtml =
         isBitDown && navConf.topbarBitDownLogo || navConf.topbarAtTopLogo;
 
-    const siteLogoTitle = siteLogoHtml &&
-        // No custom code in the admin area — bad if it breaks.
-        autoPageType !== AutoPageType.AdminArea &&
+    const siteLogoTitle = !skipCustomCode && siteLogoHtml &&
         r.div({
             className: 's_Tb_CuLogo s_Cu',
             dangerouslySetInnerHTML: { __html: siteLogoHtml }});
@@ -364,7 +366,8 @@ export const TopBar = createComponent({
 
     // ------- Custom navigation
 
-    const custLinksHtml = isBitDown && navConf.topbarBitDownNav || navConf.topbarAtTopNav;
+    const custLinksHtml = !skipCustomCode && (
+            isBitDown && navConf.topbarBitDownNav || navConf.topbarAtTopNav);
     const customNavLinks = custLinksHtml &&
         r.div({
             className: 's_Tb_CuLns s_Cu',

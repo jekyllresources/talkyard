@@ -2698,7 +2698,7 @@ const CustomizeHtmlPanel = createFactory({
         Setting2(props, { type: 'textarea', label: "</body> HTML",
           help: "Tags that will be inserted just before " +
               'the end of the <body> tag.',
-          getter: (s: Settings) => s.endOfBodyHtml,
+          getter: (s: Settings) => s.endOfBodyHtml, //
           update: (newSettings: Settings, target) => {
             newSettings.endOfBodyHtml= target.value;
           }
